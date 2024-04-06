@@ -27,14 +27,18 @@ class Driver:
     def _launch_driver(self):
         try:
 
+            current_directory = os.path.dirname(os.path.abspath(__file__))
             if platform.system() == "Linux":
-                self.logger.info(f"Linux {bool(platform.system() == 'Linux')}")
-                current_directory = os.path.dirname(os.path.abspath(__file__))
+                self.logger.info(f"Linux")
                 chromedriver_path = os.path.join(
-                    current_directory, "..", "chromedriver", "chromedriver")
+                    current_directory, "..", "chromedriver", "linux", "chromedriver")
+                os.chmod(chromedriver_path, 0o755)
+            elif platform.system() == "Darwin":
+                self.logger.info(f"MacOs")
+                chromedriver_path = os.path.join(
+                    current_directory, "..", "chromedriver", "mac", "chromedriver")
                 os.chmod(chromedriver_path, 0o755)
             else:
-                self.logger.info(f"Linux {bool(platform.system() == 'Linux')}")
                 chromedriver_path = ChromeDriverManager().install()
 
             service = Service(executable_path=str(chromedriver_path))
