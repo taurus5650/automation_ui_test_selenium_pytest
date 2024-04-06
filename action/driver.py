@@ -25,13 +25,15 @@ class Driver:
         try:
 
             if platform.system() == "Linux":
-                chromedriver_path = os.path.join("./chromedriver/chromedriver")
+                current_directory = os.path.dirname(os.path.abspath(__file__))
+                chromedriver_path = os.path.join(current_directory, "chromedriver/chromedriver")
                 os.chmod(chromedriver_path, 0o755)
             else:
                 chromedriver_path = ChromeDriverManager().install()
 
             service = Service(executable_path=chromedriver_path)
             options = webdriver.ChromeOptions()
+            options.add_argument("--verbose")
             options.add_argument("--no-sandbox")
             options.add_argument("--headless")
             options.add_argument("--ignore-certificate-errors")
