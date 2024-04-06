@@ -1,4 +1,5 @@
 import os
+import platform
 import random
 from datetime import datetime
 
@@ -22,11 +23,11 @@ class Driver:
 
     def _launch_driver(self):
         try:
-            chromedriver_path = os.path.join("./chromedriver/chromedriver")
 
-            # 使用ChromeDriverManager安装ChromeDriver
-            if not os.path.exists(chromedriver_path):
-                ChromeDriverManager().install()
+            if platform.system() == "Linux":
+                chromedriver_path = os.path.join("./chromedriver/chromedriver")
+            else:
+                chromedriver_path = ChromeDriverManager().install()
 
             service = Service(executable_path=chromedriver_path)
             options = webdriver.ChromeOptions()
