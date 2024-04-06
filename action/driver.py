@@ -26,6 +26,7 @@ class Driver:
 
             if platform.system() == "Linux":
                 chromedriver_path = os.path.join("./chromedriver/chromedriver")
+                os.chmod(chromedriver_path, 0o755)
             else:
                 chromedriver_path = ChromeDriverManager().install()
 
