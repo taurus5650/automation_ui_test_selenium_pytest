@@ -38,6 +38,7 @@ class Driver:
                 chromedriver_path = os.path.join(
                     current_directory, "..", "chromedriver", "mac", "chromedriver")
                 os.chmod(chromedriver_path, 0o755)
+                os.system(f"xattr -r -d com.apple.quarantine {chromedriver_path}")
             else:
                 chromedriver_path = ChromeDriverManager().install()
 
