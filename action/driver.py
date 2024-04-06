@@ -3,10 +3,13 @@ import platform
 import random
 from datetime import datetime
 
+import undetected_chromedriver as uc
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.os_manager import OperationSystemManager,ChromeType
+
 
 from logger import Logger
 
@@ -24,32 +27,46 @@ class Driver:
     def _launch_driver(self):
         try:
 
-            if platform.system() == "Linux":
-                current_directory = os.path.dirname(os.path.abspath(__file__))
-                chromedriver_path = os.path.join(current_directory, "..", "chromedriver", "chromedriver")
-                os.chmod(chromedriver_path, 0o755)
-            else:
-                chromedriver_path = ChromeDriverManager().install()
+            # if platform.system() == "Linux":
+            #     self.logger.info(f"Linux {bool(platform.system() == 'Linux')}")
+            #     current_directory = os.path.dirname(os.path.abspath(__file__))
+            #     chromedriver_path = os.path.join(
+            #         current_directory, "..", "chromedriver", "chromedriver")
+            #     os.chmod(chromedriver_path, 0o755)
+            # else:
+            #     self.logger.info(f"Linux {bool(platform.system() == 'Linux')}")
+            #     chromedriver_path = ChromeDriverManager().install()
 
-            service = Service(executable_path=chromedriver_path)
-            options = webdriver.ChromeOptions()
+            br_ver = OperationSystemManager().get_browser_version_from_os(ChromeType.GOOGLE)
+            version_main = int(br_ver.split('.')[0])
+            self.logger.info(f"ChromeDriverVersion: {version_main}")
+
+
+            # service = Service(executable_path=str(chromedriver_path))
+            # options = webdriver.ChromeOptions()
+
+            options = uc.ChromeOptions()
             options.add_argument("--verbose")
             options.add_argument("--no-sandbox")
-            options.add_argument("--headless=new")
+            options.add_argument("--headless")
             options.add_argument("--ignore-certificate-errors")
             options.add_argument("--disable-dev-shm-usage")
             options.add_argument("--disable-extensions")
             options.add_argument("--disable-gpu")
-            options.add_argument("--user-agent={}".format(random.choice(list(self.user_agents))))
+            options.add_argument(
+                "--user-agent={}".format(random.choice(list(self.user_agents))))
 
-            driver = webdriver.Chrome(
-                service=service,
-                options=options
-            )
+            driver = uc.Chrome(options=options,version_main=version_main)
+
+            # driver = webdriver.Chrome(
+            #     service=service,
+            #     options=options
+            # )
+
             self.logger.info(driver)
             return driver
         except Exception as e:
-            self.logger.error(f"Initial Error：{e}")
+            self.logger.error(f"Driver Initial Error：{e}")
             return None
 
     def _wait_for_element(self, driver, condition, locator, timeout=10):
