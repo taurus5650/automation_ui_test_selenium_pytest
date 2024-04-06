@@ -33,12 +33,14 @@ class Driver:
                 chromedriver_path = os.path.join(
                     current_directory, "..", "chromedriver", "linux", "chromedriver")
                 os.chmod(chromedriver_path, 0o755)
+                self.logger.info(f"DriverExists: {os.path.exists(chromedriver_path)}")
             elif platform.system() == "Darwin":
                 self.logger.info(f"MacOs")
                 chromedriver_path = os.path.join(
                     current_directory, "..", "chromedriver", "mac", "chromedriver")
                 os.chmod(chromedriver_path, 0o755)
                 os.system(f"xattr -r -d com.apple.quarantine {chromedriver_path}")
+                self.logger.info(f"DriverExists: {os.path.exists(chromedriver_path)}")
             else:
                 chromedriver_path = ChromeDriverManager().install()
 
