@@ -91,27 +91,6 @@ pipeline {
             }
         }
 
-        stage('Install Chrome') {
-            steps {
-                script {
-                    sh 'wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
-                    sh 'ls -l google-chrome-stable_current_amd64.deb'
-                    stash includes: 'google-chrome-stable_current_amd64.deb', name: 'chrome-package'
-                    cleanWs()
-                }
-            }
-        }
-
-        stage('Extract and Install Chrome') {
-            steps {
-                script {
-                    unstash 'chrome-package'
-                    sh 'sudo apt-get install -f'
-                }
-            }
-        }
-
-
         stage('Run Tests') {
             steps {
                 script {
