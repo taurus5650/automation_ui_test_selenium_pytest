@@ -4,15 +4,15 @@ from datetime import datetime
 import allure
 from selenium.webdriver.support import expected_conditions as EC
 
-from action import Driver
-from locator import VerifyTestCasesPageLocators
+from action.driver import Driver
+from locator import Locators
 from logger import Logger
 
 
 class TestCase:
     logger = Logger.setup_logger()
     driver = Driver()
-    locator = VerifyTestCasesPageLocators()
+    locator = Locators()
 
     @allure.title("Verify Test Cases Page")
     def test_verify_test_cases_page(self):

@@ -4,15 +4,15 @@ from datetime import datetime
 import allure
 from selenium.webdriver.support import expected_conditions as EC
 
-from action import Driver
-from locator import RegisterPageLocators
+from action.driver import Driver
+from locator import Locators
 from logger import Logger
 
 
 class TestCase:
     logger = Logger.setup_logger()
     driver = Driver()
-    locator = RegisterPageLocators()
+    locator = Locators()
 
     @allure.title("Register User")
     def test_register_user(self):

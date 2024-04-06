@@ -1,9 +1,11 @@
 import os
+import random
 from datetime import datetime
 
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
+from webdriver_manager.chrome import ChromeDriverManager
 
 from logger import Logger
 
@@ -12,16 +14,32 @@ class Driver:
     logger = Logger.setup_logger()
 
     def __init__(self):
+        self.user_agents = [
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36",
+        ]
         self.driver = self._launch_driver()
 
     def _launch_driver(self):
         try:
-            options = Options()
-            options.add_argument("--no-sandbox")
-            options.add_argument("--incognito")
-            options.add_argument("--headless=new")
-            options.add_argument("--start-maximized")
-            driver = webdriver.Chrome(options=options)
+            chromedriver_path = os.path.join("./chromedriver/chromedriver")
+
+            service = Service(
+                executable_path= chromedriver_path if os.path.exists(chromedriver_path) else ChromeDriverManager().install()
+            )
+            options = webdriver.ChromeOptions()
+            # options.add_argument("--no-sandbox")
+            options.add_argument("--headless")
+            options.add_argument("--ignore-certificate-errors")
+            # options.add_argument("--disable-dev-shm-usage")
+            options.add_argument("--disable-extensions")
+            options.add_argument("--disable-gpu")
+            options.add_argument("--user-agent={}".format(random.choice(list(self.user_agents))))
+
+            driver = webdriver.Chrome(
+                service=service,
+                options=options
+            )
             self.logger.info(driver)
             return driver
         except Exception as e:
@@ -70,5 +88,3 @@ class Driver:
             return screenshot
         except Exception as e:
             self.logger.error(f"Error capturing screenshot: {e}")
-
-
