@@ -24,9 +24,11 @@ class Driver:
         try:
             chromedriver_path = os.path.join("./chromedriver/chromedriver")
 
-            service = Service(
-                executable_path= chromedriver_path if os.path.exists(chromedriver_path) else ChromeDriverManager().install()
-            )
+            # 使用ChromeDriverManager安装ChromeDriver
+            if not os.path.exists(chromedriver_path):
+                ChromeDriverManager().install()
+
+            service = Service(executable_path=chromedriver_path)
             options = webdriver.ChromeOptions()
             options.add_argument("--no-sandbox")
             options.add_argument("--headless")
@@ -43,7 +45,7 @@ class Driver:
             self.logger.info(driver)
             return driver
         except Exception as e:
-            self.logger.error(f"Error initializing driver: {e}")
+            self.logger.error(f"Initial Error：{e}")
             return None
 
     def _wait_for_element(self, driver, condition, locator, timeout=10):
