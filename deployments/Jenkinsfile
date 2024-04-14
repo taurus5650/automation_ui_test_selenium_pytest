@@ -21,18 +21,19 @@ pipeline {
     }
 
     environment {
-        _GIT_REPO               = "https://github.com/taurus5650/automation_ui_test_selenium_pytest.git"
-        _GIT_CREDENTIALS_ID     = "a6d86234-1d62-4bc8-9142-d6dd1dbbb867"
-        _REPORT_RESULT_PATH     = "build/results.xml"
-        _ALLURE_REPORT_PATH     = "/allure-results"
-        _JOB_CONFIG             = "deployments/job_configurations.json"
-        _VENV_CMD_CREATE_VENV   = "python3 -m venv /tmp/venv"
-        _VENV_CMD_ACTIVE        = ". /tmp/venv/bin/activate"
-        _VENV_CMD_UPGRADE_PIP   = "/tmp/venv/bin/pip install --upgrade pip"
-        _VENV_CMD_INSTALL_LIB   = "/tmp/venv/bin/pip install -r ./requirements.txt"
-        _VENV_CMD_REMOVED       = "rm -rf /tmp/venv"
-        _JENKINS_INSTALLATION   = "chmod +x deployments/jenkins_installation.sh deployments/jenkins_installation.sh"
-        _AT_COMMAND             = "/tmp/venv/bin/python -m pytest --alluredir ${WORKSPACE}/allure-results --junitxml=build/results.xml"
+        _GIT_REPO                   = "https://github.com/taurus5650/automation_ui_test_selenium_pytest.git"
+        _GIT_CREDENTIALS_ID         = "a6d86234-1d62-4bc8-9142-d6dd1dbbb867"
+        _REPORT_RESULT_PATH         = "build/results.xml"
+        _ALLURE_REPORT_PATH         = "/allure-results"
+        _JOB_CONFIG                 = "deployments/job_configurations.json"
+        _VENV_CMD_CREATE_VENV       = "python3 -m venv /tmp/venv"
+        _VENV_CMD_ACTIVE            = ". /tmp/venv/bin/activate"
+        _VENV_CMD_UPGRADE_PIP       = "/tmp/venv/bin/pip install --upgrade pip"
+        _VENV_CMD_INSTALL_LIB       = "/tmp/venv/bin/pip install -r ./requirements.txt"
+        _VENV_CMD_REMOVED           = "rm -rf /tmp/venv"
+        _JENKINS_INSTALL_PERMISSION = "chmod +x deployments/jenkins_installation.sh"
+        _JENKINS_INSTALLATION_RUN   = "deployments/jenkins_installation.sh"
+        _AT_COMMAND                 = "/tmp/venv/bin/python -m pytest --alluredir ${WORKSPACE}/allure-results --junitxml=build/results.xml"
     }
 
     parameters {
@@ -80,22 +81,16 @@ pipeline {
             }
         }
 
-        stage('Setup Virtual Environment') {
+        stage('Setup Virtual Environment & Install Dependencies') {
             steps {
                 script {
                     // Create and activate virtual environment
                     sh "${_VENV_CMD_CREATE_VENV}"
+                    sh "${_JENKINS_INSTALL_PERMISSION}"
+                    sh "${_JENKINS_INSTALLATION_RUN}"
                     sh "${_VENV_CMD_ACTIVE}"
                     sh "${_VENV_CMD_UPGRADE_PIP}"
                     sh "${_VENV_CMD_INSTALL_LIB}"
-                }
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                script {
-                    sh "${_JENKINS_INSTALLATION}"
                 }
             }
         }
