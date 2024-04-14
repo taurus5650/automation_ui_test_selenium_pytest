@@ -6,11 +6,12 @@
   - Selenium
   - Docker 
 - Support testing 
-  - Website UI testing (Testing resouces : https://automationexercise.com/test_casest)
+  - Website UI testing (Testing resouces : https://automationexercise.com/test_cases)
 
 ## Directory Structure
 ```commandline
 git ls-tree -r --name-only HEAD | tree --fromfile
+
 .
 ├── .gitignore
 ├── README.md
@@ -24,11 +25,10 @@ git ls-tree -r --name-only HEAD | tree --fromfile
 │       └── chromedriver
 ├── conftest.py
 ├── deployments
-│   ├── Dockerfile
-│   ├── Jenkinsfile
-│   ├── jenkins_installation.sh
-│   └── job_configurations.json
+│   └── Dockerfile
 ├── logger.py
+├── readme
+│   └── docker_log_test_result.png
 ├── requirements.txt
 ├── screenshots
 │   └── screenshot_20240401_001956.jpg
