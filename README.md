@@ -18,11 +18,6 @@ git ls-tree -r --name-only HEAD | tree --fromfile
 ├── action
 │   ├── api_request.py
 │   └── driver.py
-├── chromedriver
-│   ├── linux
-│   │   └── chromedriver
-│   └── mac
-│       └── chromedriver
 ├── conftest.py
 ├── deployments
 │   └── Dockerfile
@@ -43,7 +38,6 @@ git ls-tree -r --name-only HEAD | tree --fromfile
 
 ## Step-by-step
 1. Build up a simple Docker
-Input the command
 ```
 $ docker build --platform linux/amd64 --no-cache  -t ui_selenium -f ./deployments/Dockerfile .
 ```
