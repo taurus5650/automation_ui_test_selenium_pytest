@@ -86,9 +86,9 @@ pipeline {
                 script {
                     // Create and activate virtual environment
                     sh "${_VENV_CMD_CREATE_VENV}"
+                    sh "${_VENV_CMD_ACTIVE}"
                     sh "${_JENKINS_INSTALL_PERMISSION}"
                     sh "${_JENKINS_INSTALLATION_RUN}"
-                    sh "${_VENV_CMD_ACTIVE}"
                     sh "${_VENV_CMD_UPGRADE_PIP}"
                     sh "${_VENV_CMD_INSTALL_LIB}"
                 }
