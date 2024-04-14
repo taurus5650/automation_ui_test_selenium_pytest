@@ -15,7 +15,7 @@ from logger import Logger
 
 
 class Driver:
-    logger = Logger.setup_logger()
+    logger = Logger.setup_logger(__name__)
 
     def __init__(self):
         self.user_agents = [
@@ -27,22 +27,7 @@ class Driver:
     def _launch_driver(self):
         try:
 
-            current_directory = os.path.dirname(os.path.abspath(__file__))
-            if platform.system() == "Linux":
-                self.logger.info(f"Linux")
-                chromedriver_path = os.path.join(
-                    current_directory, "..", "chromedriver", "linux", "chromedriver")
-                os.chmod(chromedriver_path, 0o755)
-                self.logger.info(f"DriverExists: {os.path.exists(chromedriver_path)}")
-            elif platform.system() == "Darwin":
-                self.logger.info(f"MacOs")
-                chromedriver_path = os.path.join(
-                    current_directory, "..", "chromedriver", "mac", "chromedriver")
-                os.chmod(chromedriver_path, 0o755)
-                os.system(f"xattr -r -d com.apple.quarantine {chromedriver_path}")
-                self.logger.info(f"DriverExists: {os.path.exists(chromedriver_path)}")
-            else:
-                chromedriver_path = ChromeDriverManager().install()
+            chromedriver_path = ChromeDriverManager().install()
 
             service = Service(executable_path=str(chromedriver_path))
             options = webdriver.ChromeOptions()
