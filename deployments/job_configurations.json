@@ -1,4 +1,0 @@
-{
-  "auto-ui-user": "./test_suites/test_01_user",
-  "auto-ui-test-cases": "./test_suites/test_02_test_cases"
-}
