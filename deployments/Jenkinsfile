@@ -31,7 +31,7 @@ pipeline {
         _VENV_CMD_UPGRADE_PIP   = "/tmp/venv/bin/pip install --upgrade pip"
         _VENV_CMD_INSTALL_LIB   = "/tmp/venv/bin/pip install -r ./requirements.txt"
         _VENV_CMD_REMOVED       = "rm -rf /tmp/venv"
-        _JENKINS_INSTALLATION   = "./jenkins_installation.sh"
+        _JENKINS_INSTALLATION   = "deployments/jenkins_installation.sh"
         _AT_COMMAND             = "/tmp/venv/bin/python -m pytest --alluredir ${WORKSPACE}/allure-results --junitxml=build/results.xml"
     }
 
