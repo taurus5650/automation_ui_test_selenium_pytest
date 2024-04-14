@@ -95,7 +95,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    sh "${find / -name python3.9 -type f}"
+                    sh "${_JENKINS_INSTALLATION}"
                 }
             }
         }
