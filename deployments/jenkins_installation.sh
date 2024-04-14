@@ -1,5 +1,7 @@
+#!/bin/bash
+
 # Install Chromedriver
-RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` && \
+CHROMEDRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE) && \
    mkdir -p /opt/chromedriver-$CHROMEDRIVER_VERSION && \
    curl -sS -o /tmp/chromedriver_linux64.zip http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip && \
    unzip -qq /tmp/chromedriver_linux64.zip -d /opt/chromedriver-$CHROMEDRIVER_VERSION && \
@@ -8,19 +10,18 @@ RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RE
    ln -fs /opt/chromedriver-$CHROMEDRIVER_VERSION/chromedriver /usr/local/bin/chromedriver
 
 # Install Google Chrome
-RUN curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-   echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list && \
-   apt-get -yqq update && \
-   apt-get -yqq install google-chrome-stable && \
-   rm -rf /var/lib/apt/lists/*
+curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - && \
+   echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list && \
+   sudo apt-get -yqq update && \
+   sudo apt-get -yqq install google-chrome-stable && \
+   sudo rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
-RUN apt-get update && apt-get install -y \
+sudo apt-get update && sudo apt-get install -y \
   unzip \
   curl \
-  gnupg \
-  && rm -rf /var/lib/apt/lists/*
-RUN curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add
-RUN echo deb "http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
-RUN apt-get -y update
-RUN apt-get install -y google-chrome-stable
+  gnupg
+sudo curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add
+sudo echo deb "http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+sudo apt-get -y update
+sudo apt-get install -y google-chrome-stable
