@@ -6,7 +6,7 @@
   - Selenium
   - Docker 
 - Support testing 
-  - Restful api testing (Testing resouces : https://automationexercise.com/test_casest)
+  - Website UI testing (Testing resouces : https://automationexercise.com/test_casest)
 
 ## Directory Structure
 ```commandline
