@@ -24,4 +24,3 @@ class Locator(object):
     ZIPCODE = (By.ID, 'zipcode')
     MOBILE_NUMBER = (By.ID, 'mobile_number')
     CREATE_ACCOUNT_BTN = (By.CSS_SELECTOR, '[data-qa="create-account"]')
-    ACCOUNT_CREATED_TEXT = (By.CSS_SELECTOR, '[data-qa="account-created"]')

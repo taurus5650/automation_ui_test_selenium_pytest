@@ -35,3 +35,11 @@ class LoginPage:
             condition=EC.element_to_be_clickable,
             locator=self.locator.SIGN_UP_BTN
         ).click()
+
+    def check_email_addr_alr_exist(self, launch_driver: str):
+        element = self.driver._wait_for_element(
+            driver=launch_driver,
+            condition=EC.visibility_of_element_located,
+            locator=self.locator.EMAIL_ADDRESS_ALR_EXIST
+        ).text
+        return element
