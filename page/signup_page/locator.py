@@ -1,15 +1,9 @@
 from selenium.webdriver.common.by import By
 
 
-class Locators(object):
+class Locator(object):
 
-    ENTER_HOMPAGE_URL = "https://automationexercise.com/"
-    SIGN_IN_OR_SIGN_UP_HYPERLINK = (By.XPATH, '//*[@id="header"]/div/div/div/div[2]/div/ul/li[4]/a')
-    SIGN_IN_OR_SIGN_UP_PAGE_H2 = (By.XPATH, '//h2')
-    SIGN_UP_NAME = (By.CSS_SELECTOR, '[data-qa="signup-name"]')
-    SIGN_UP_EMAIL = (By.CSS_SELECTOR, '[data-qa="signup-email"]')
-    SIGN_UP_BTN = (By.CSS_SELECTOR, '[data-qa="signup-button"]')
-    ENTER_ACCOUNT_INFO_TEXT = (By.XPATH, '//*[@id="form"]/div/div/div/div/h2')
+    ENTER_ACCOUNT_INFO_TEXT = (By.XPATH, '//*[@id="form"]/div/div/div/div/h2/b')
     ID_GENDER_1 = (By.ID, 'id_gender1')
     PASSWORD = (By.ID, 'password')
     DATE_OF_BIRTH_DAYS_DROPDOWN = (By.ID, 'days')
@@ -30,4 +24,3 @@ class Locators(object):
     ZIPCODE = (By.ID, 'zipcode')
     MOBILE_NUMBER = (By.ID, 'mobile_number')
     CREATE_ACCOUNT_BTN = (By.CSS_SELECTOR, '[data-qa="create-account"]')
-    ACCOUNT_CREATED_TEXT = (By.CSS_SELECTOR, '[data-qa="account-created"]')
