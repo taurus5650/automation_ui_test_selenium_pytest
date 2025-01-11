@@ -27,7 +27,7 @@ class Driver:
     def _launch_driver(self):
         try:
 
-            chromedriver_path = ChromeDriverManager().install()
+            chromedriver_path = ChromeDriverManager(driver_version="131.0.6778.265").install()
 
             service = Service(executable_path=str(chromedriver_path))
             options = webdriver.ChromeOptions()
@@ -35,7 +35,7 @@ class Driver:
             options.add_argument("--verbose")
             options.add_argument("--no-sandbox")
             options.add_argument("--window-size=1420,1080")
-            options.add_argument("--headless")
+            # options.add_argument("--headless")
             options.add_argument("--disable-gpu")
             options.add_argument(
                 "--user-agent={}".format(random.choice(list(self.user_agents))))
