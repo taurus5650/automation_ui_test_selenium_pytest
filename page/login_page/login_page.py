@@ -1,7 +1,7 @@
 from selenium.webdriver.support import expected_conditions as EC
 
 from action.driver import Driver
-from page.home_page.locator import Locator
+from .locator import Locator
 
 
 class LoginPage:

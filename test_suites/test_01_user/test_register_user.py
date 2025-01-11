@@ -15,6 +15,7 @@ class TestCase:
     logger = Logger.setup_logger(__name__)
     driver = Driver()
     home_page = HomePage()
+    login_page = LoginPage()
 
     @allure.title("Register User")
     def test_register_user(self):
@@ -52,48 +53,46 @@ class TestCase:
         )
         # endregion __Step4. Click on 'Signup / Login' button
 
-        # # region __Step5. Verify 'New User Signup!' is visible
-        # for _ in range(for_loop_max):
-        #     sign_in_or_sign_up_page = login_page.check_signin_or_signup_h2()
-        #     time.sleep(1)
-        #     if expected_sign_up_form_text:
-        #         assert True
-        #         break
-        #     else:
-        #         assert False, logger.error(
-        #             f" [{sign_up_form_text}] not found within {for_loop_max} seconds")
+        # region __Step5. Verify 'New User Signup!' is visible
+        for _ in range(for_loop_max):
+            sign_in_or_sign_up_page = self.login_page.check_signin_or_signup_h2(
+                launch_driver=launch_driver
+            )
+            time.sleep(1)
+            if expected_sign_up_form_text:
+                assert True
+                break
+            else:
+                assert False, logger.error(
+                    f" [{sign_up_form_text}] not found within {for_loop_max} seconds")
         # endregion __Step5. Verify 'New User Signup!' is visible
-        #
-        # # region __Step6. Enter name and email address
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.visibility_of_element_located,
-        #     locator=self.locator.SIGN_UP_NAME
-        # ).send_keys(name)
-        #
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.visibility_of_element_located,
-        #     locator=self.locator.SIGN_UP_EMAIL
-        # ).send_keys(sign_up_email)
-        # # endregion __Step6. Enter name and email address
-        #
-        # # region __Step7. Click 'Signup' button
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.element_to_be_clickable,
-        #     locator=self.locator.SIGN_UP_BTN
-        # ).click()
-        # # endregion __Step7. Click 'Signup' button
-        #
-        # # region __Step8. Verify that 'ENTER ACCOUNT INFORMATION' is visible
-        # enter_account_info = self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.visibility_of_element_located,
-        #     locator=self.locator.ENTER_ACCOUNT_INFO_TEXT
-        # )
-        # assert expected_enter_account_info_text == enter_account_info.text
-        # # endregion __Step8. Verify that 'ENTER ACCOUNT INFORMATION' is visible
+
+        # region __Step6. Enter name and email address
+        self.login_page.input_sign_up_name(
+            launch_driver=launch_driver,
+            text=name
+        )
+
+        self.login_page.input_sign_up_email(
+            launch_driver=launch_driver,
+            text=sign_up_email
+        )
+        # endregion __Step6. Enter name and email address
+
+        # region __Step7. Click 'Signup' button
+        self.login_page.click_sign_up_btn(
+            launch_driver=launch_driver
+        )
+        # endregion __Step7. Click 'Signup' button
+
+        # region __Step8. Verify that 'ENTER ACCOUNT INFORMATION' is visible
+        enter_account_info = self.driver._wait_for_element(
+            driver=launch_driver,
+            condition=EC.visibility_of_element_located,
+            locator=self.locator.ENTER_ACCOUNT_INFO_TEXT
+        )
+        assert expected_enter_account_info_text == enter_account_info.text
+        # endregion __Step8. Verify that 'ENTER ACCOUNT INFORMATION' is visible
         #
         # # region __Step9. Fill details: Title, Name, Email, Password, Date of
         # # birth
