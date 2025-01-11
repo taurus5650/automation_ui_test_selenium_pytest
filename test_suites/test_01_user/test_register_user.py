@@ -16,15 +16,19 @@ class TestCase:
     driver = Driver()
     home_page = HomePage()
     login_page = LoginPage()
+    signup_page = SignUpPage()
 
     @allure.title("Register User")
     def test_register_user(self):
+        home_page_url = "http://automationexercise.com"
         current_time = datetime.now()
         for_loop_max = 180
         expected_homepage_title = "Automation Exercise"
         expected_sign_up_form_text = "New User Signup!"
         name = f"automation_{current_time.strftime('%Y%m%d%H%M%S%f')}"
+        print(name)
         sign_up_email = f"{current_time.strftime('%Y%m%d%H%M%S%f')}@automation.com"
+        print(sign_up_email)
         expected_enter_account_info_text = "ENTER ACCOUNT INFORMATION"
         password = "1234567890"
         address = "24th Floor, Dr. S.P.M. Civic Centre, Minto Road, New Delhi, India."
@@ -34,13 +38,14 @@ class TestCase:
         mobile_number = "155305"
         expected_account_created_text = "ACCOUNT CREATED!"
 
-
         # region __Step1. Launch browser
         launch_driver = self.driver._launch_driver()
         # endregion __Step1. Launch browser
 
         # region __Step2. Navigate to url 'http://automationexercise.com'
-        launch_driver.get("http://automationexercise.com")
+        launch_driver.get(
+            url=home_page_url
+        )
         # endregion __Step2. Navigate to url 'http://automationexercise.com'
 
         # region __Step3. Verify that home page is visible successfully
@@ -86,120 +91,73 @@ class TestCase:
         # endregion __Step7. Click 'Signup' button
 
         # region __Step8. Verify that 'ENTER ACCOUNT INFORMATION' is visible
-        enter_account_info = self.driver._wait_for_element(
-            driver=launch_driver,
-            condition=EC.visibility_of_element_located,
-            locator=self.locator.ENTER_ACCOUNT_INFO_TEXT
+        enter_account_info = self.signup_page.check_enter_account_info(
+            launch_driver=launch_driver
         )
-        assert expected_enter_account_info_text == enter_account_info.text
+        assert enter_account_info == expected_enter_account_info_text
         # endregion __Step8. Verify that 'ENTER ACCOUNT INFORMATION' is visible
-        #
-        # # region __Step9. Fill details: Title, Name, Email, Password, Date of
-        # # birth
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.element_to_be_clickable,
-        #     locator=self.locator.ID_GENDER_1
-        # ).click()
-        #
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.visibility_of_element_located,
-        #     locator=self.locator.PASSWORD
-        # ).send_keys(password)
-        #
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.element_to_be_clickable,
-        #     locator=self.locator.DATE_OF_BIRTH_DAYS_DROPDOWN
-        # ).click()
-        #
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.element_to_be_clickable,
-        #     locator=self.locator.DATE_OF_BIRTH_DAYS
-        # ).click()
-        #
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.element_to_be_clickable,
-        #     locator=self.locator.DATE_OF_BIRTH_DAYS_DROPDOWN
-        # ).click()
-        #
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.element_to_be_clickable,
-        #     locator=self.locator.DATE_OF_BIRTH_MONTHS
-        # ).click()
-        #
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.element_to_be_clickable,
-        #     locator=self.locator.DATE_OF_BIRTH_YEARS_DROPDOWN
-        # ).click()
-        #
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.element_to_be_clickable,
-        #     locator=self.locator.DATE_OF_BIRTH_YEARS
-        # ).click()
-        #
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.visibility_of_element_located,
-        #     locator=self.locator.FIRST_NAME
-        # ).send_keys(name)
-        #
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.visibility_of_element_located,
-        #     locator=self.locator.LAST_NAME
-        # ).send_keys(name)
-        #
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.visibility_of_element_located,
-        #     locator=self.locator.COMPANY
-        # ).send_keys(name)
-        #
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.visibility_of_element_located,
-        #     locator=self.locator.ADDRESS_1
-        # ).send_keys(address)
-        #
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.visibility_of_element_located,
-        #     locator=self.locator.STATE
-        # ).send_keys(state)
-        #
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.visibility_of_element_located,
-        #     locator=self.locator.CITY
-        # ).send_keys(city)
-        #
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.visibility_of_element_located,
-        #     locator=self.locator.ZIPCODE
-        # ).send_keys(zipcode)
-        #
-        # self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.visibility_of_element_located,
-        #     locator=self.locator.MOBILE_NUMBER
-        # ).send_keys(mobile_number)
-        #
-        # create_account_button = self.driver._wait_for_element(
-        #     driver=launch_driver,
-        #     condition=EC.element_to_be_clickable,
-        #     locator=self.locator.CREATE_ACCOUNT_BTN
-        # ).click()
-        # # endregion __Step9. Fill details: Title, Name, Email, Password, Date
-        # # of birth
-        #
+
+        # region __Step9. Fill details: Title, Name, Email, Password, Date of birth
+        self.signup_page.click_title_gender_radio(
+            launch_driver=launch_driver
+        )
+
+        self.signup_page.input_password(
+            launch_driver=launch_driver,
+            text=password
+        )
+
+        self.signup_page.click_date_of_birth_dropdown_list(
+            launch_driver=launch_driver
+        )
+
+        self.signup_page.input_first_name(
+            launch_driver=launch_driver,
+            text=name
+        )
+
+        self.signup_page.input_last_name(
+            launch_driver=launch_driver,
+            text=name
+        )
+
+        self.signup_page.input_company(
+            launch_driver=launch_driver,
+            text=name
+        )
+
+        self.signup_page.input_address(
+            launch_driver=launch_driver,
+            text=address
+        )
+
+        self.signup_page.input_state(
+            launch_driver=launch_driver,
+            text=state
+        )
+
+        self.signup_page.input_city(
+            launch_driver=launch_driver,
+            text=city
+        )
+
+        self.signup_page.input_zip_code(
+            launch_driver=launch_driver,
+            text=zipcode
+        )
+
+        self.signup_page.input_mobile_num(
+            launch_driver=launch_driver,
+            text=mobile_number
+        )
+
+        create_account_button = self.signup_page.click_create_acc_btn(
+            launch_driver=launch_driver,
+        )
+        # endregion __Step9. Fill details: Title, Name, Email, Password, Date of birth
+
+        time.sleep(1000)
+
         # # region __Step14. Verify that 'ACCOUNT CREATED!' is visible
         # account_created_text = self.driver._wait_for_element(
         #     driver=launch_driver,

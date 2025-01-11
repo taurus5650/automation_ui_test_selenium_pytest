@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 
 class Locator(object):
 
-    ENTER_ACCOUNT_INFO_TEXT = (By.XPATH, '//*[@id="form"]/div/div/div/div/h2')
+    ENTER_ACCOUNT_INFO_TEXT = (By.XPATH, '//*[@id="form"]/div/div/div/div/h2/b')
     ID_GENDER_1 = (By.ID, 'id_gender1')
     PASSWORD = (By.ID, 'password')
     DATE_OF_BIRTH_DAYS_DROPDOWN = (By.ID, 'days')
