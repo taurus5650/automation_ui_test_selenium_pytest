@@ -22,18 +22,27 @@ git ls-tree -r --name-only HEAD | tree --fromfile
 ├── deployments
 │   └── Dockerfile
 ├── logger.py
+├── page
+│   ├── acc_create_confirmation_page
+│   │   ├── acc_create_confirmation_page.py
+│   │   └── locator.py
+│   ├── home_page
+│   │   ├── home_page.py
+│   │   └── locator.py
+│   ├── login_page
+│   │   ├── locator.py
+│   │   └── login_page.py
+│   └── signup_page
+│       ├── locator.py
+│       └── signup_page.py
 ├── readme
 │   └── docker_log_test_result.png
 ├── requirements.txt
 ├── screenshots
-│   └── screenshot_20240401_001956.jpg
+│   ├── screenshot_20240401_001956.jpg
 └── test_suites
-    ├── test_01_user
-    │   ├── locator.py
-    │   └── test_register_user.py
-    └── test_02_test_cases
-        ├── locator.py
-        └── test_verify_test_cases_page.py
+    └── test_01_user
+        └── test_register_user.py
 ```
 
 ## Step-by-step
