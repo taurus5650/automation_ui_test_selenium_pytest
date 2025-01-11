@@ -38,11 +38,12 @@ git ls-tree -r --name-only HEAD | tree --fromfile
 ├── readme
 │   └── docker_log_test_result.png
 ├── requirements.txt
-├── screenshots
-│   ├── screenshot_20240401_001956.jpg
 └── test_suites
-    └── test_01_user
-        └── test_register_user.py
+    ├── test_01_user
+    │   └── test_register_user.py
+    └── test_02_services
+        └── test_services.py
+
 ```
 
 ## Step-by-step
